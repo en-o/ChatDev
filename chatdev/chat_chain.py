@@ -36,9 +36,9 @@ class ChatChain:
             config_path: path to the ChatChainConfig.json
             config_phase_path: path to the PhaseConfig.json
             config_role_path: path to the RoleConfig.json
-            task_prompt: the user input prompt for software
-            project_name: the user input name for software
-            org_name: the organization name of the human user
+            task_prompt: the user input prompt for software （用户输入的软件需求提示）
+            project_name: the user input name for software （用户为软件输入的项目名称）
+            org_name: the organization name of the human user （用户所在组织的名称）
         """
 
         # load config file

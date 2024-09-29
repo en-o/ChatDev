@@ -94,13 +94,13 @@ parser = argparse.ArgumentParser(description='argparse')
 # 设置自定义配置[填写CompanyConfig/下的文件夹名]
 parser.add_argument('--config', type=str, default="Default",
                     help="Name of config, which is used to load configuration under CompanyConfig/")
-# 设置生成software的目录名字（name_你输入的_timestamp）
+# 设置 software 组织（name_你输入的_timestamp）
 parser.add_argument('--org', type=str, default="DefaultOrganization",
                     help="Name of organization, your software will be generated in WareHouse/name_org_timestamp")
 # software 名字和简单描述
 parser.add_argument('--task', type=str, default="Develop a basic Gomoku game.",
                     help="Prompt of software")
-# software 名字(同时会被应用到--org 用到的名字的 name_org_timestamp 目录上的name里)
+# 设置 software 名字(同时会被应用到--org 用到的名字的 name_org_timestamp 目录上的name里)
 parser.add_argument('--name', type=str, default="Gomoku",
                     help="Name of software, your software will be generated in WareHouse/name_org_timestamp")
 # 选择模型
