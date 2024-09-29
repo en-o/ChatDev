@@ -50,6 +50,7 @@ class ChatChain:
         self.model_type = model_type
         self.code_path = code_path
 
+        # 加载配置
         with open(self.config_path, 'r', encoding="utf8") as file:
             self.config = json.load(file)
         with open(self.config_phase_path, 'r', encoding="utf8") as file:
@@ -57,15 +58,15 @@ class ChatChain:
         with open(self.config_role_path, 'r', encoding="utf8") as file:
             self.config_role = json.load(file)
 
-        # init chatchain config and recruitments
+        # init chatchain config and recruitments （init 项目流程和招聘信息 来源于：ChatChainConfig.json）
         self.chain = self.config["chain"]
         self.recruitments = self.config["recruitments"]
         self.web_spider = self.config["web_spider"]
 
-        # init default max chat turn
+        # init default max chat turn (最大聊天回合)
         self.chat_turn_limit_default = 10
 
-        # init ChatEnv
+        # init ChatEnv (ChatEnvConfig(数据来源于 ChatChainConfig.json))
         self.chat_env_config = ChatEnvConfig(clear_structure=check_bool(self.config["clear_structure"]),
                                              gui_design=check_bool(self.config["gui_design"]),
                                              git_management=check_bool(self.config["git_management"]),
@@ -76,11 +77,13 @@ class ChatChain:
         self.chat_env = ChatEnv(self.chat_env_config)
 
         # the user input prompt will be self-improved (if set "self_improve": "True" in ChatChainConfig.json)
+        #  - 用户输入提示符将自我改进(如果在ChatChainConfig.json中设置“self_improve”:“True”)
         # the self-improvement is done in self.preprocess
+        #  - 自我完善是在自我预处理中完成的
         self.task_prompt_raw = task_prompt
         self.task_prompt = ""
 
-        # init role prompts
+        # init role prompts (角色提示)
         self.role_prompts = dict()
         for role in self.config_role:
             self.role_prompts[role] = "\n".join(self.config_role[role])
@@ -88,10 +91,13 @@ class ChatChain:
         # init log
         self.start_time, self.log_filepath = self.get_logfilepath()
 
-        # init SimplePhase instances
+        # init SimplePhase instances （初始化一个简单的阶段实例）
         # import all used phases in PhaseConfig.json from chatdev.phase
+        #  - 在PhaseConfig中导入所有使用过的阶段。Json从chatdev.phase
         # note that in PhaseConfig.json there only exist SimplePhases
+        #   - 注意，在PhaseConfig.json中只存在SimplePhases
         # ComposedPhases are defined in ChatChainConfig.json and will be imported in self.execute_step
+        #   - 组成阶段在ChatChainConfig.json中定义，将在self.execute_step中导入
         self.compose_phase_module = importlib.import_module("chatdev.composed_phase")
         self.phase_module = importlib.import_module("chatdev.phase")
         self.phases = dict()

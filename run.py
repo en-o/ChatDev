@@ -151,7 +151,7 @@ logging.basicConfig(filename=chat_chain.log_filepath, level=logging.INFO,
                     datefmt='%Y-%d-%m %H:%M:%S', encoding="utf-8")
 
 # ----------------------------------------
-#          Pre Processing（前置处理）
+#          Pre Processing（前置(预)处理）
 # ----------------------------------------
 
 chat_chain.pre_processing()
