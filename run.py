@@ -119,7 +119,9 @@ args = parser.parse_args()
 # ----------------------------------------
 #          Init ChatChain
 # ----------------------------------------
+# 基础配置
 config_path, config_phase_path, config_role_path = get_config(args.config)
+# args.model  输入的字符串转枚举
 args2type = {'GPT_3_5_TURBO': ModelType.GPT_3_5_TURBO,
              'GPT_4': ModelType.GPT_4,
             #  'GPT_4_32K': ModelType.GPT_4_32k,
@@ -131,6 +133,7 @@ args2type = {'GPT_3_5_TURBO': ModelType.GPT_3_5_TURBO,
 if openai_new_api:
     args2type['GPT_3_5_TURBO'] = ModelType.GPT_3_5_TURBO_NEW
 
+# 根据输入参数加载 chatChain 函数
 chat_chain = ChatChain(config_path=config_path,
                        config_phase_path=config_phase_path,
                        config_role_path=config_role_path,
